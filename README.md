@@ -69,6 +69,12 @@
       > 輸入數字為 0 ~ 100  
       ex:  
       `set bossbar progress of {_bar} to 100`
+    * #### 玩家是否可見bossbar
+      > bossbar [object] %object% can visible  
+      > 回傳布林值  
+      ex:  
+      `if bossbar {_bar} can visible = true`  
+      `  set bossbar {_bar} can visible to false`  
 
       
       
