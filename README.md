@@ -36,6 +36,7 @@
       > all [of] bossbar [object] [with id]  
       ex:  
       `broadcast "%all bossbar object%"`  
+      `delete all bossbar object`  
     * #### 設定bossbar物件中的玩家
       > bossbar [object] players of %object%  
       ex:  
