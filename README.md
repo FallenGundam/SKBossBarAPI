@@ -16,7 +16,7 @@
       `set {_bar} to BossBar_create("mybar","&emy title","red","solid")`  
     * #### 刪除bossbar物件
       > delete bossbar [object] %object%  
-      ex:
+      ex:  
       `delete bossbar {_bar}`
   * ### conditions:
     * #### 判斷bossbar物件是否存在  
@@ -26,44 +26,44 @@
   * ### expression:
     * #### 透過id取得bossbar物件  
       > bossbar [object] by id %string%  
-      ex:
-      `set {_bar} to bossbar by id "mybar"`
-      `delete bossbar by id "mybar"`
-    * #### 取得所有存在的bossbar id
-      > all [of] bossbar [object] [with id] 
-      ex:
-      `broadcast "%all bossbar object%"`
+      ex:  
+      `set {_bar} to bossbar by id "mybar"`  
+      `delete bossbar by id "mybar"`  
+    * #### 取得所有存在的bossbar id  
+      > all [of] bossbar [object] [with id]  
+      ex:  
+      `broadcast "%all bossbar object%"`  
     * #### 設定bossbar物件中的玩家
-      > bossbar [object] players of %object%
-      ex:
-      `set {_players::*} to bossbar players of {_bar}`
-      `add player to bossbar players of {_bar}`
-      `remove player from bossbar players of {_bar}`
-      `delete bossbar players of {_bar}`
+      > bossbar [object] players of %object%  
+      ex:  
+      `set {_players::*} to bossbar players of {_bar}`  
+      `add player to bossbar players of {_bar}`  
+      `remove player from bossbar players of {_bar}`  
+      `delete bossbar players of {_bar}`  
     * #### 更改bossbar的顏色
-      > bossbar [object] color of %object%
-      ex:
+      > bossbar [object] color of %object%  
+      ex:  
       `set bossbar color of {_bar} to "red"`
     * #### 更改bossbar的style
-      > bossbar [object] style of %object%
-      > 可使用 SEGMENTED_10, SEGMENTED_12, SEGMENTED_20, SEGMENTED_6, SOLID
-      ex:
-      `set bossbar color of {_bar} to "solid"`
+      > bossbar [object] style of %object%  
+      > 可使用 SEGMENTED_10, SEGMENTED_12, SEGMENTED_20, SEGMENTED_6, SOLID  
+      ex:  
+      `set bossbar color of {_bar} to "solid"`  
     * #### 添加bossbar特殊flag
-      > bossbar [object] flags of %object%
-      > 可使用 CREATE_FOG, DARKEN_SKY,	PLAY_BOSS_MUSIC
-      ex:
-      `add "CREATE_FOG" to bossbar flags of {_bar}`
-      `remove "CREATE_FOG" from bossbar flags of {_bar}`
-      `set {_flags::*} to bossbar flags of {_bar}`
+      > bossbar [object] flags of %object%  
+      > 可使用 CREATE_FOG, DARKEN_SKY,	PLAY_BOSS_MUSIC  
+      ex:  
+      `add "CREATE_FOG" to bossbar flags of {_bar}`  
+      `remove "CREATE_FOG" from bossbar flags of {_bar}`  
+      `set {_flags::*} to bossbar flags of {_bar}`  
     * #### 更改bossbar的title
-      > bossbar [object] title of %object%
-      ex:
-      `set bossbar title of {_bar} to "&e這是標題"`
+      > bossbar [object] title of %object%  
+      ex:  
+      `set bossbar title of {_bar} to "&e這是標題"`  
     * #### 更改bossbar的進度條
-      > bossbar [object] progress of %object%
-      > 輸入數字為 0 ~ 100
-      ex:
+      > bossbar [object] progress of %object%  
+      > 輸入數字為 0 ~ 100  
+      ex:  
       `set bossbar progress of {_bar} to 100`
 
       
