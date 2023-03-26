@@ -1,0 +1,31 @@
+# 簡單的血量顯示
+# 退出伺服器bar自動刪除
+
+
+
+on join:
+	set {_id} to "%name of player%-healthbar"
+	set {_bar} to BossBar_create({_id},"&eHealthBar - %player's health*2%/%player's max health*2%","blue","solid")
+	set bossbar object progress of {_bar} to player's health/player's max health*100
+	add player to bossbar object players of {_bar}
+on damage:
+	if victim is player:
+		wait a tick
+    if BossBar_isExists(player) = true:
+      set {_id} to "%name of victim%-healthbar"
+      set {_progress} to victim's health/victim's max health*100
+      set {_bar} to bossbar object by id {_id}
+      set bossbar object title of {_bar} to "&eHealthBar - %victim's health*2%/%victim's max health*2%"
+      set bossbar object progress of {_bar} to {_progress}
+on heal:
+	wait a tick
+  if BossBar_isExists(player) = true:
+    set {_id} to "%name of player%-healthbar"
+    set {_progress} to player's health/player's max health*100
+    set {_bar} to bossbar object by id {_id}
+    set bossbar object title of {_bar} to "&eHealthBar - %player's health*2%/%player's max health*2%"
+    set bossbar object progress of {_bar} to {_progress}
+on quit:
+	delete bossbar object by id "%name of player%-healthbar"
+  
+  
