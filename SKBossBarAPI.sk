@@ -163,6 +163,16 @@ expression bossbar [object] title of %object%:
 		return expr-1.getTitle()
 	set:
 		expr-1.setTitle(change value)
+		
+plural expression all %string% type in bossbar [object]:
+	return type: string
+	get:
+		if expr-1 = "color":
+			return ...BarColor.values().name()
+		else if expr-1 = "flag":
+			return ...BarFlag.values().name()
+		else if expr-1 = "style":
+			return ...BarStyle.values().name()
 
 
 on skript unload:
