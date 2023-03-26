@@ -13,13 +13,8 @@
 # API
   * ### effect:  
     * #### 創建一個bossbar  並取得該bossbar物件  
-      > create bossbar [object] by id %string% with title %string% with color %string% [with type %string%]  
-      ex:  
-      `create bossbar object by id "mybar" with title "this title" with color "red" with type "solid"`  
-      `set {_mybar} to bossbar object by id "mybar"`
-
-      __可使用function的方式 (推薦)__  
-      > BossBar_create(id:string,title:string,color:string,style:string = "SOLID")  
+      > BossBar_create(id:string,title:string = "example title",color:string = "red",style:string = "SOLID")  
+      > id必填，其他留空會自動使用預設值  
       ex:  
       `set {_bar} to BossBar_create("mybar","&emy title","red","solid")`  
     * #### 刪除bossbar物件
