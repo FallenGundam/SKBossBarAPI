@@ -68,19 +68,31 @@
     * #### 更改bossbar的title
       > bossbar [object] title of %object%  
       ex:  
+      `set {_title} to bossbar title of {_bar}`  
       `set bossbar title of {_bar} to "&e這是標題"`  
     * #### 更改bossbar的進度條
       > bossbar [object] progress of %object%  
+      > 回傳數字number(0-100)
       > 輸入數字為 0 ~ 100  
       ex:  
-      `set bossbar progress of {_bar} to 100`
+      `set bossbar progress of {_bar} to 100`  
+      `add 10 to bossbar progress of {_bar}`  
+      `set {_progress} to bossbar progress of {_bar}`
     * #### 玩家是否可見bossbar
       > bossbar [object] %object% can visible  
       > 回傳布林值  
       ex:  
       `if bossbar {_bar} can visible = true`  
       `  set bossbar {_bar} can visible to false`  
-
+  * ### Type:
+    * #### 取得 color, flag, style 的所有名稱
+      > all %string% type in bossbar [object]  
+      > 回傳string列表  
+      ex:  
+      `set {_color::*} to all "color" type in bossbar`  
+      `set {_rainbow} to random element out of {_color::*}:`  
+      `set bossbar color of {_bar} to {_rainbow}`  
+      
       
       
       
