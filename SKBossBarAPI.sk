@@ -4,6 +4,7 @@
 #date: 2023/3/26
 
 
+
 import:
 	org.bukkit.Bukkit
 	org.bukkit.NamespacedKey
@@ -12,59 +13,25 @@ import:
 	org.bukkit.boss.BarStyle
 	org.bukkit.boss.BarFlag
 
-
-function BossBar_isExists(id:string) :: boolean:
-	set {_id} to bar_idformat({_id})
-	set {_NamespacedKey} to new NamespacedKey("skript",{_id})
-	loop ...Bukkit.getBossBars():
-		set {_element} to loop-value
-		if {_element}.getKey() = {_NamespacedKey}:
-			return true
-	return false
-
-function BossBar_create(id:string,title:string,color:string,style:string = "SOLID") :: object:
-	if BossBar_isExists({_id}) = true:
-		send "&c[SKBossBarAPI] &6BossBar id:&e%{_id}% &6is exists !" to console and ops
-		stop trigger
-	set {_id} to bar_idformat({_id})
-	set {_NamespacedKey} to new NamespacedKey("skript",{_id})
-	set {_bar} to Bukkit.createBossBar({_NamespacedKey},{_title},BarColor.valueOf({_color}.toUpperCase()),BarStyle.valueOf({_style}.toUpperCase()))
-	{_bar}.show()
-	return {_bar}
-
-function bar_idformat(id:string) :: string:
-	set {_id} to uncolored {_id}
-	set {_id} to {_id}.toLowerCase()
-	return {_id}.trim()
-  
-function BossBar_clearAll():
-	# set {_bars} to Bukkit.getBossBars()
-	# while {_bars}.hasNext():
-	# 	add {_bars}.next() to {_bar::*}
-	loop ...Bukkit.getBossBars():
-		set {_bar} to loop-value
-		if {_bar}.getKey().toString() contains "skript:":
-			{_bar}.removeAll()
-			Bukkit.removeBossBar({_bar}.getKey())
+	ch.njol.skript.Skript
 
 
-effect create bossbar object by id %string% with title %string% with color %string% [with type %string%]:
-	parse:
-		if BossBar_isExists(expr-1) = true:
-			send "&c[SKBossBarAPI] &6BossBar id:&e%{_id}% &6is exists !" to console and ops
-		else:
-			set {_id} to bar_idformat(expr-1)
-			set {_NamespacedKey} to new NamespacedKey("skript",{_id})
-			if expr-4 isn't set:
-				set {_style} to "SOLID"
-			else:
-				set {_style} to expr-4
-			continue
-	trigger:
-		set {_bar} to Bukkit.createBossBar({_NamespacedKey},expr-2,BarColor.valueOf(expr-3.toUpperCase()),BarStyle.valueOf({_style}.toUpperCase()))
-		{_bar}.show()
 
 
+plural expression all %string% type in bossbar [object]:
+	return type: string
+	get:
+		if expr-1 = "color":
+			loop ...BarColor.values():
+				add loop-value.name() to {_result::*}
+		else if expr-1 = "flag":
+			loop ...BarFlag.values():
+				add loop-value.name() to {_result::*}
+		else if expr-1 = "style":
+			loop ...BarStyle.values():
+				add loop-value.name() to {_result::*}
+		return {_result::*}
+		
 expression bossbar [object] by id %string%:
 	return type: object
 	get:
@@ -75,7 +42,6 @@ expression bossbar [object] by id %string%:
 		set {_bar} to Bukkit.getBossBar({_NamespacedKey})
 		{_bar}.removeAll()
 		Bukkit.removeBossBar({_bar}.getKey())
-
 
 effect delete bossbar object %object%:
 	trigger:
@@ -111,12 +77,12 @@ expression bossbar [object] progress of %object%:
 		if expr-1.getProgress() - (change value/100) >= 0:
 			expr-1.setProgress(expr-1.getProgress() - change value/100)
 		else:
-			send "&c[SKBossBarAPI] &6BossBar progress can't be Negative number" to console
+			Skript.error("SKBossBarAPI >> &cBossBar progress can't be Negative number") 
 	set:
 		if (change value/100) >= 0:
 			expr-1.setProgress(change value/100)
 		else:
-			send "&c[SKBossBarAPI] &6BossBar progress can't be Negative number" to console
+			Skript.error("SKBossBarAPI >> &cBossBar progress can't be Negative number") 
 			
 plural expression bossbar [object] players of %object%:
 	return type: player
@@ -135,6 +101,9 @@ expression bossbar [object] color of %object%:
 	get:
 		return expr-1.getColor().toString()
 	set:
+		if all "color" type in bossbar doesn't contain change value.toUpperCase():
+			Skript.error("SKBossBarAPI >> invalid color type!")
+			stop trigger
 		expr-1.setColor(BarColor.valueOf(change value.toUpperCase()))
 
 expression bossbar [object] style of %object%:
@@ -142,6 +111,9 @@ expression bossbar [object] style of %object%:
 	get:
 		return expr-1.getStyle().toString()
 	set:
+		if all "style" type in bossbar doesn't contain change value.toUpperCase():
+			Skript.error("SKBossBarAPI >> invalid style type!")
+			stop trigger
 		expr-1.setStyle(BarStyle.valueOf(change value.toUpperCase()))
 
 plural expression bossbar [object] flags of %object%:
@@ -163,16 +135,47 @@ expression bossbar [object] title of %object%:
 		return expr-1.getTitle()
 	set:
 		expr-1.setTitle(change value)
-		
-plural expression all %string% type in bossbar [object]:
-	return type: string
-	get:
-		if expr-1 = "color":
-			return ...BarColor.values().name()
-		else if expr-1 = "flag":
-			return ...BarFlag.values().name()
-		else if expr-1 = "style":
-			return ...BarStyle.values().name()
+
+
+function BossBar_clearAll():
+	# set {_bars} to Bukkit.getBossBars()
+	# while {_bars}.hasNext():
+	# 	add {_bars}.next() to {_bar::*}
+	loop ...Bukkit.getBossBars():
+		set {_bar} to loop-value
+		if {_bar}.getKey().toString() contains "skript:":
+			{_bar}.removeAll()
+			Bukkit.removeBossBar({_bar}.getKey())
+
+function BossBar_isExists(id:string) :: boolean:
+	set {_id} to bar_idformat({_id})
+	set {_NamespacedKey} to new NamespacedKey("skript",{_id})
+	loop ...Bukkit.getBossBars():
+		set {_element} to loop-value
+		if {_element}.getKey() = {_NamespacedKey}:
+			return true
+	return false
+
+function BossBar_create(id:string,title:string = "example",color:string = "red",style:string = "SOLID") :: object:
+	if BossBar_isExists({_id}) = true:
+		Skript.error("&cSKBossBarAPI &7>> &6BossBar id:&e%{_id}% &6is exists !")
+		stop trigger
+	if all "color" type in bossbar doesn't contain {_color}.toUpperCase():
+		Skript.error("&cSKBossBarAPI &7>> &6invalid color type!")
+		stop trigger
+	if all "style" type in bossbar doesn't contain {_style}.toUpperCase():
+		Skript.error("&cSKBossBarAPI &7>> &6invalid style type!")
+		stop trigger
+	set {_id} to bar_idformat({_id})
+	set {_NamespacedKey} to new NamespacedKey("skript",{_id})
+	set {_bar} to Bukkit.createBossBar({_NamespacedKey},{_title},BarColor.valueOf({_color}.toUpperCase()),BarStyle.valueOf({_style}.toUpperCase()))
+	{_bar}.show()
+	return {_bar}
+
+function bar_idformat(id:string) :: string:
+	set {_id} to uncolored {_id}
+	set {_id} to {_id}.toLowerCase()
+	return {_id}.trim()
 
 
 on skript unload:
