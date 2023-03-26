@@ -28,6 +28,7 @@
       > bossbar [object] by id %string%  
       ex:
       `set {_bar} to bossbar by id "mybar"`
+      `delete bossbar by id "mybar"`
     * #### 取得所有存在的bossbar id
       > all [of] bossbar [object] [with id] 
       ex:
@@ -64,15 +65,7 @@
       > 輸入數字為 0 ~ 100
       ex:
       `set bossbar progress of {_bar} to 100`
-    * #### 更改bossbar的title
-      > bossbar [object] %object% can visible
-      ex:
-      `set bossbar {_bar} can visible to true`
-      
-      
-      
-            
-      
+
       
       
       
