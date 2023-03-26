@@ -18,7 +18,7 @@ import:
 
 
 
-plural expression all %string% type in bossbar [object]:
+plural expression all %string% type in bossbar[api]:
 	return type: string
 	get:
 		if expr-1 = "color":
