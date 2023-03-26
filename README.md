@@ -1,6 +1,9 @@
 # SKBossBarAPI
 因其他插件的bossbar不太合乎需求所以自己寫了一個，可綁定獨有ID
 
+# 備註:  
+ id不可使用中文只可使用英文a-z/0-9  
+ 當重啟後，所有的bossbar將會被清除  
 
 # API
   * ### effect:  
