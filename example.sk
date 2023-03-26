@@ -4,28 +4,33 @@
 
 
 on join:
+	#設定ID，可自行搭配也可使用uuid
 	set {_id} to "%name of player%-healthbar"
+	#創建bossbar物件
 	set {_bar} to BossBar_create({_id},"&eHealthBar - %player's health*2%/%player's max health*2%","blue","solid")
+	#設定進度條
 	set bossbar object progress of {_bar} to player's health/player's max health*100
+	#將玩家加入bossbar，玩家才可見到bossbar
 	add player to bossbar object players of {_bar}
+	
 on damage:
 	if victim is player:
 		wait a tick
-    if BossBar_isExists(player) = true:
-      set {_id} to "%name of victim%-healthbar"
-      set {_progress} to victim's health/victim's max health*100
-      set {_bar} to bossbar object by id {_id}
-      set bossbar object title of {_bar} to "&eHealthBar - %victim's health*2%/%victim's max health*2%"
-      set bossbar object progress of {_bar} to {_progress}
+		set {_id} to "%name of victim%-healthbar"
+		#取得已存在的bossbar物件
+		set {_bar} to bossbar object by id {_id}   
+		set {_progress} to victim's health/victim's max health*100
+		set bossbar object title of {_bar} to "&eHealthBar - %victim's health*2%/%victim's max health*2%"
+		set bossbar object progress of {_bar} to {_progress}
 on heal:
-	wait a tick
-  if BossBar_isExists(player) = true:
-    set {_id} to "%name of player%-healthbar"
-    set {_progress} to player's health/player's max health*100
-    set {_bar} to bossbar object by id {_id}
-    set bossbar object title of {_bar} to "&eHealthBar - %player's health*2%/%player's max health*2%"
-    set bossbar object progress of {_bar} to {_progress}
+	set {_id} to "%name of player%-healthbar"
+	if BossBar_isExists({_id}) = true:
+		wait a tick
+		set {_bar} to bossbar object by id {_id}
+		set bossbar object title of {_bar} to "&eHealthBar - %player's health*2%/%player's max health*2%"
+		set {_progress} to player's health/player's max health*100
+		set bossbar object progress of {_bar} to {_progress}
 on quit:
-	delete bossbar object by id "%name of player%-healthbar"
-  
-  
+	delete bossbar object by id "%name of player%-healthbar" #刪除bossbar物件 釋放資源
+
+
