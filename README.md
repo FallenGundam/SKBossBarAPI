@@ -43,12 +43,35 @@
       > bossbar [object] color of %object%
       ex:
       `set bossbar color of {_bar} to "red"`
-    * #### 取得所有存在的bossbar id
-      > all [of] bossbar [object] [with id] 
+    * #### 更改bossbar的style
+      > bossbar [object] style of %object%
+      > 可使用 SEGMENTED_10, SEGMENTED_12, SEGMENTED_20, SEGMENTED_6, SOLID
       ex:
-      `broadcast "%all bossbar object%"`
+      `set bossbar color of {_bar} to "solid"`
+    * #### 添加bossbar特殊flag
+      > bossbar [object] flags of %object%
+      > 可使用 CREATE_FOG, DARKEN_SKY,	PLAY_BOSS_MUSIC
+      ex:
+      `add "CREATE_FOG" to bossbar flags of {_bar}`
+      `remove "CREATE_FOG" from bossbar flags of {_bar}`
+      `set {_flags::*} to bossbar flags of {_bar}`
+    * #### 更改bossbar的title
+      > bossbar [object] title of %object%
+      ex:
+      `set bossbar title of {_bar} to "&e這是標題"`
+    * #### 更改bossbar的進度條
+      > bossbar [object] progress of %object%
+      > 輸入數字為 0 ~ 100
+      ex:
+      `set bossbar progress of {_bar} to 100`
+    * #### 更改bossbar的title
+      > bossbar [object] %object% can visible
+      ex:
+      `set bossbar {_bar} can visible to true`
       
       
+      
+            
       
       
       
