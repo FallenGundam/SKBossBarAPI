@@ -12,7 +12,7 @@
 
 # API
   * ### effect:  
-    * #### 創建一個bossbar  並取得該bossbar物件  
+    * #### 創建一個bossbar  並回傳該bossbar物件  
       > BossBar_create(id:string,title:string = "example title",color:string = "red",style:string = "SOLID")  
       > id必填，其他留空會自動使用預設值  
       ex:  
